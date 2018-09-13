@@ -1,12 +1,13 @@
+%Authors: Eser Comak, Carlos Huerta
 %This function will run PCA
 %Function assumes the dimensions are laid out column wise and the samples
 %are rows
-function [pc, eigenvalues] = otherPca(A)
+function [pc, eigenvalues] = mypca(A)
  
  %take the mean for each dimension
  dimensionMean = mean(A); 
  
- %duplicate the rowMean vector into NxN matrix
+ %duplicate the dimensionMean vector into NxN matrix
  meanMatrix = repmat(dimensionMean,size(A,1),1);
  
  %substract meanMatrix from initial matrix to centeralize data points
