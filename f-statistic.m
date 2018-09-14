@@ -32,3 +32,12 @@ meanC = mean(C);
 grandMean = (DV2(1) * meanA + DV2(2) * meanB + DV2(3) * meanC) / (DV2(1) + DV2(2) + DV2(3));
 
 SSB = ((DV2(1)*(meanA - grandMean).^2) + (DV2(2)*(meanB - grandMean).^2) + (DV2(3)*(meanC - grandMean).^2)) / (numel(DV2)-1);
+
+sumVarA = sum((A - meanA).^2);
+varianceA = sumVarA / DV2(1);
+
+sumVarB = sum((B - meanB).^2);
+varianceB = sumVarB / DV2(2);
+
+sumVarC = sum((C - meanC).^2);
+varianceC = sumVarC / DV2(3);
