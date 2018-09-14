@@ -1,3 +1,6 @@
+% Author: Emile Muller
+% Matlab code to calculate the F-statistic of sets of given independant (IV) and dependant variables (DV)
+
 H = 1;
 M = 2;
 L = 3;
