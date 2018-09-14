@@ -16,3 +16,15 @@ end
 
 DV2 = accumarray(DV,1);
 %DV2 = [9;6;5];
+
+% A: all the 'H' elements of IV
+A = IV(1 : DV2(1));
+meanA = mean(A);
+
+% B: all the 'M' elements of IV
+B = IV(DV2(1) : DV2(1)+DV2(2));
+meanB = mean(B);
+
+% C: all the 'L' elements of IV
+C = IV(DV2(1)+DV2(2) : DV2(1)+DV2(2)+DV2(3));
+meanC = mean(C);
