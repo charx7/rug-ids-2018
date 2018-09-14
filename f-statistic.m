@@ -28,3 +28,5 @@ meanB = mean(B);
 % C: all the 'L' elements of IV
 C = IV(DV2(1)+DV2(2) : DV2(1)+DV2(2)+DV2(3));
 meanC = mean(C);
+
+grandMean = (DV2(1) * meanA + DV2(2) * meanB + DV2(3) * meanC) / (DV2(1) + DV2(2) + DV2(3));
