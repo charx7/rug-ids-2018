@@ -41,3 +41,7 @@ varianceB = sumVarB / DV2(2);
 
 sumVarC = sum((C - meanC).^2);
 varianceC = sumVarC / DV2(3);
+
+SSW = ((DV2(1)-1)*varianceA + (DV2(2)-1)*varianceB + (DV2(3)-1)*varianceC) / (DV2(1)-1 + DV2(2)-1 + DV2(3)-1);
+
+F = SSB / SSW
