@@ -31,7 +31,7 @@ for i = 1:size(trainingData,1)
     c1 = predict(knn,testData(srtidx(1:i),:)');            
     acc(i) = sum(testId == c1)/numel(testId);
 end
-
+acc
 figure;plot(acc);
 xlabel('Number of Selected Features');
 ylabel('Accuracy Rate');
