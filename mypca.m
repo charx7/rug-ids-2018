@@ -10,13 +10,13 @@ function [pc, eigenvalues] = mypca(A)
  %duplicate the dimensionMean vector into NxN matrix
  meanMatrix = repmat(dimensionMean,size(A,1),1);
  
- %substract meanMatrix from initial matrix to centeralize data points
+ %substract meanMatrix from initial matrix to centralize data points
  centeredA = A - meanMatrix;
  
  %compute covariance matrix
  covarianceA = cov(centeredA);
  
- %compute eigen values
+ %compute eigen vectors and values
  [eigenvectors, eigenvalues] =eig(covarianceA);
  
  %display the results
