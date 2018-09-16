@@ -1,12 +1,17 @@
 % Author: Emile Muller
 % Matlab code to calculate the F-statistic of sets of given independant (IV) and dependant variables (DV)
 
+function main()
+% initial conditions, works with 3 categories
+IV = [9;7;6.5;8;7.5;7;9.5;8;6.5;7.5;8;6;7;6.5;7.5;8;6;6;6.5;6.5];
 H = 1;
 M = 2;
 L = 3;
-% initial conditions, works with 3 categories
-IV = [9;7;6.5;8;7.5;7;9.5;8;6.5;7.5;8;6;7;6.5;7.5;8;6;6;6.5;6.5];
 DV = [H;H;H;H;H;H;H;H;H;M;M;M;M;M;M;L;L;L;L;L];
+myOneWayANOVA(IV,DV)
+end
+
+function f = myOneWayANOVA(IV,DV)
 
 errormsg1 = 'IV and DV must have the same size';
 if numel(IV) ~= numel(DV)
@@ -52,3 +57,4 @@ varianceC = sumVarC / (DV2(3) - 1);;
 SSW = ((DV2(1)-1)*varianceA + (DV2(2)-1)*varianceB + (DV2(3)-1)*varianceC) / (DV2(1)-1 + DV2(2)-1 + DV2(3)-1);
 
 F = SSB / SSW
+end
