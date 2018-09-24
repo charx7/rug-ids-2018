@@ -19,6 +19,7 @@ dependencies:
   - decorator=4.3.0=py35_0
   - entrypoints=0.2.3=py35_2
   - freetype=2.9.1=ha9979f8_1
+  - graphviz=2.38=hfd603c8_2
   - html5lib=1.0.1=py35_0
   - hyperlink=18.0.0=py35_0
   - icc_rt=2017.0.4=h97af966_0
@@ -71,12 +72,14 @@ dependencies:
   - pyasn1=0.4.4=py35h28b3542_0
   - pyasn1-modules=0.2.2=py35_0
   - pycparser=2.18=py35_1
+  - pydotplus=2.0.2=py35_0
   - pygments=2.2.0=py35h24c0941_0
   - pyopenssl=18.0.0=py35_0
   - pyparsing=2.2.0=py35_1
   - pyqt=5.9.2=py35ha878b3d_0
   - python=3.5.6=he025d50_0
   - python-dateutil=2.7.3=py35_0
+  - python-graphviz=0.8.4=py35_1
   - pytz=2018.5=py35_0
   - pywin32=223=py35hfa6e2cd_1
   - pywinpty=0.5.4=py35_0
@@ -113,4 +116,3 @@ dependencies:
   - zope=1.0=py35_1
   - zope.interface=4.5.0=py35hfa6e2cd_0
 prefix: C:\Users\Charx\Anaconda2\envs\idscourseenv
-
