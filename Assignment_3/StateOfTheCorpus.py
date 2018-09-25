@@ -9,7 +9,6 @@ from nltk.stem.porter import *
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -20,36 +19,37 @@ nltk.download('state_union')
 nltk.download('stopwords')
 nltk.download('punkt')
 
-print("\n\n")
-print('The fields are: ')
-print(state_union.fileids())
+textnames = state_union.fileids()
+
+def clean_text(text):
+    # Define tokenization of the words
+    words = word_tokenize(bushUnion)
+
+    # Stem the words
+    stemmer = PorterStemmer()   # Create instance of the porter stemmer
+    stemmedwords = [stemmer.stem(word) for word in words]
+
+    # Set-up remove of stop words
+    stop_words = set(stopwords.words('english'))
+
+    # Cleanup of the stemmed words
+    cleanedStemmedWords = []
+    for word in stemmedwords:
+        # Not commas periods and applause.
+        if word not in  [",",".","``","''",";","?","--",")","(",":","!","applaus"
+                        ] and len(word) > 4 and word not in stop_words:
+                cleanedStemmedWords.append(word.lower())
+
+    return cleanedStemmedWords
 
 # Set up the text to tokenize
 bushUnion = state_union.raw('2005-GWBush.txt')
 
-# Define tokenization of the words
-words = word_tokenize(bushUnion)
-
-# Create an instance of the porter stemmer
-stemmer = PorterStemmer()
-
-# Steam the words
-stemmedwords = [stemmer.stem(word) for word in words]
+cleanedStemmedWords = clean_text(bushUnion)
 
 # Frequency distribution of the speech
 #words = [word for word in state_union.words(text)]
 #frequencies = nltk.FreqDist([w for w in words if len(w) > 4 and w.lower() == w])
-
-# Set-up remove of stop words
-stop_words = set(stopwords.words('english'))
-
-# Cleanup of the stemmed words
-cleanedStemmedWords = []
-for word in stemmedwords:
-    # Not commas periods and applause.
-    if word not in  [",",".","``","''",";","?","--",")","(",":","!","applaus"
-                    ] and len(word) > 4 and word not in stop_words:
-            cleanedStemmedWords.append(word.lower())
 
 # word frequencies of the not stemmed document
 #frequencies = nltk.FreqDist(stemmedwords)
@@ -112,6 +112,10 @@ for i in texts:
 vectorizer = TfidfVectorizer(min_df=1, stop_words="english",norm=None)
 # Fit the state of the union corpus
 X = vectorizer.fit_transform(stateUnion_corpus)
+
+def text2BagOfWords(text):
+
+    return bag
 
 
 #print (vectorizer.get_feature_names())
