@@ -23,7 +23,7 @@ textnames = state_union.fileids()
 
 def clean_text(text):
     # Define tokenization of the words
-    words = word_tokenize(bushUnion)
+    words = word_tokenize(text)
 
     # Stem the words
     stemmer = PorterStemmer()   # Create instance of the porter stemmer
