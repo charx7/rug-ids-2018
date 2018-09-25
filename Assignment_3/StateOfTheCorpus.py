@@ -1,16 +1,11 @@
 # NLTK imports
 import nltk
-from nltk.corpus import webtext
 from nltk.corpus import state_union
 from nltk.probability import DictionaryProbDist
 
-# Porter Stemming
-from nltk.stem.porter import *
-from nltk import word_tokenize
-from nltk.corpus import stopwords
-
 import matplotlib.pyplot as plt
 import numpy as np
+from util import clean_text
 
 # Import the vectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -20,27 +15,6 @@ nltk.download('stopwords')
 nltk.download('punkt')
 
 textnames = state_union.fileids()
-
-def clean_text(text):
-    # Define tokenization of the words
-    words = word_tokenize(text)
-
-    # Stem the words
-    stemmer = PorterStemmer()   # Create instance of the porter stemmer
-    stemmedwords = [stemmer.stem(word) for word in words]
-
-    # Set-up remove of stop words
-    stop_words = set(stopwords.words('english'))
-
-    # Cleanup of the stemmed words
-    cleanedStemmedWords = []
-    for word in stemmedwords:
-        # Not commas periods and applause.
-        if word not in  [",",".","``","''",";","?","--",")","(",":","!","applaus"
-                        ] and len(word) > 4 and word not in stop_words:
-                cleanedStemmedWords.append(word.lower())
-
-    return cleanedStemmedWords
 
 # Set up the text to tokenize
 bushUnion = state_union.raw('2005-GWBush.txt')
@@ -112,11 +86,6 @@ for i in texts:
 vectorizer = TfidfVectorizer(min_df=1, stop_words="english",norm=None)
 # Fit the state of the union corpus
 X = vectorizer.fit_transform(stateUnion_corpus)
-
-def text2BagOfWords(text):
-
-    return bag
-
 
 #print (vectorizer.get_feature_names())
 # Do the Term Frequency, Document frequency
