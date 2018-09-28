@@ -8,7 +8,10 @@ import numpy as np
 from util import clean_text
 from tqdm import tqdm
 from sklearn.decomposition import PCA
+import seaborn as sns
 
+sns.set()
+sns.set_context('paper')
 nltk.download('state_union')
 nltk.download('gutenberg')
 
@@ -16,7 +19,7 @@ nltk.download('gutenberg')
 corpus = state_union
 
 textnames = corpus.fileids()
-corpusnames = {gutenberg : 'gutenberg', state_union : 'state_union'}
+corpusnames = {gutenberg : 'Gutenberg books', state_union : 'State union documents'}
 
 print("cleaning texts..")
 clean_texts = {name : clean_text(corpus.raw(name)) for name in tqdm(textnames)}
@@ -45,5 +48,7 @@ projection = _pca_.transform(data)
 
 # Plot texts on principal component dimension
 plt.scatter(projection[:, 0], projection[:, 1])
-plt.title("PCA (" + corpusnames[corpus] + ")")
+plt.title(corpusnames[corpus])
+plt.xlabel("First principal component")
+plt.ylabel("Second principal component")
 plt.show()
