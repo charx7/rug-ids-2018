@@ -1,4 +1,3 @@
-# NLTK imports
 import nltk
 from nltk.corpus import state_union
 from nltk.corpus import gutenberg
@@ -11,12 +10,12 @@ from sklearn.decomposition import PCA
 import seaborn as sns
 
 sns.set()
-sns.set_context('paper')
+sns.set_context('poster')
 nltk.download('state_union')
 nltk.download('gutenberg')
 
 # Set current corpus (state_union, gutenberg)
-corpus = state_union
+corpus = gutenberg
 
 textnames = corpus.fileids()
 corpusnames = {gutenberg : 'Gutenberg books', state_union : 'State union documents'}
@@ -46,8 +45,16 @@ _pca_ = PCA(n_components = 2)
 _pca_.fit(data)
 projection = _pca_.transform(data)
 
+# Get top-5 words in first pc
+inverse_vocab = {idx : word for (word, idx) in vocabulary.items() }
+sv = _pca_.singular_values_                              # singular values
+sv_sorted = np.argsort(sv)[-5:][::-1]            # indices of top 5 sv's
+top_words = [inverse_vocab[idx] for idx in sv_sorted]   # top 5 words
+word_sv = [(top_words[idx], sv[idx]) for idx in sv_sorted]  # match words w. sv
+print("First principal component: \n", word_sv)
+
 # Plot texts on principal component dimension
-plt.scatter(projection[:, 0], projection[:, 1])
+plt.scatter(projection[:, 0], projection[:, 1], s=12)
 plt.title(corpusnames[corpus])
 plt.xlabel("First principal component")
 plt.ylabel("Second principal component")
