@@ -1,4 +1,4 @@
-60/100
+68/100
 
 Feedback:
 Q1.1 (Eigen): Well Done
@@ -21,5 +21,5 @@ In getoffspring()
 Have to ensure that the offspring cannot be an entire copy of parent. Think about situation where crossover = 1 or length of parent
 
 Q2.4 (Application):
-0/10 Does not compile? Attempted implementation is rather inefficient. No plot shown in the report.
-5/20 The outcome of the algorithms are not shown. When discussing results, include the figures. No accuracy given for the eigenface approach. Advantages/Disadvantages not really mentioned for each approach.
+8/10 Does not compile? Attempted implementation is rather inefficient due to the use of loops. Try to use matrix/vector operations instead. No plot shown in the report.
+5/20 The outcome of the algorithms are not shown. When discussing results, include the figures. Advantages/disadvantages not really mentioned for each approach.
