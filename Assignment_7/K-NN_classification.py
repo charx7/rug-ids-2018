@@ -18,4 +18,5 @@ df = preprocess(rawData, labels, True)
 #print("The appended resulting dataframe is: \n", df)
 
 # Class balancing: upsampling minority class
-df_upsampled = doUpsamling(df)
+df_upsampled_ordered = doUpsamling(df)
+df_upsampled = df_upsampled_ordered.sample(frac=1).reset_index(drop=True)
