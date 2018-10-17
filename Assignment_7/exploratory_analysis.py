@@ -111,4 +111,4 @@ plt.ylabel("p-value")
 ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.show()
 
-print(reducedDf)
+print("The reduced df according to anova p-values is: \n", reducedDf)
