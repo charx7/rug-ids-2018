@@ -8,6 +8,7 @@ import pprint
 
 # Custom Imports
 from utils.preprocessor import preprocess
+from utils.preprocessor import reduceDimentions
 from utils.scaler import scale
 from utils.dimentionallityReduction import doPCA
 from utils.dimentionallityReduction import doTSNE
@@ -92,50 +93,12 @@ plt.show()
 # Moar dimentionallity Reduction via ANOVA
 # Attach labels to the scaled dataset again...
 scaledDf = preprocess(scaledDf, labels, False)
+
 # Call the Anova function
+sortedAnovaResults, significantValues, reducedDf = reduceDimentions(scaledDf, 'ANOVA',
+    0.01, reduce= True)
 
-# Empty array to save our resultz
-anovaResults = []
-for i in range(columns-1):
-    # Save the column index we are working on
-    currentIteration = "x" + str(i+1)
-    # Call the custom ANOVA function
-    currentF, currentP = doANOVA(scaledDf, currentIteration)
-
-    # Save our results on a dictionary format
-    currentIndex = i
-    curentResults = {
-        "currentIndex": currentIndex,
-        "fStat": currentF,
-        "pValue": currentP
-    }
-    # Append our results
-    anovaResults.append(curentResults)
-
-# Desc Sort the listed dictionary based on the P-value
-sortedAnova = sorted(anovaResults, key=lambda k: k['pValue'])
-# Pretty print to the console our results
-pprint.pprint(sortedAnova)
-
-pValuesArray = []
-indicesArray = []
-#print((sortedAnova[0])['pValue'])
-# Turn the results into an array for a nice Viz
-for i in range(len(sortedAnova)):
-    pValuesArray.append(sortedAnova[i].get('pValue'))
-    indicesArray.append(sortedAnova[i].get('currentIndex'))
-print('The best indices according to ANOVA: ',indicesArray)
-print('Their respective p-values are: ',pValuesArray)
-
-#Plot for fun and profit
-
-# Get just the p-values which are < 0.05 our CUTPOINT
-# for statistical significance
-significantValues = list(filter(lambda x: x < 0.01, pValuesArray))
-
-print("We have: ", len(significantValues[:]),
-    ' significant dimensions using a cutpoint of p-value <0.01 according to ANOVA')
-
+# Plot for fun and profit
 x_cords = []
 for i in range(len(significantValues[:])):
     x_cords.append(i + 1)
@@ -147,3 +110,5 @@ plt.xlabel('Dimenension')
 plt.ylabel("p-value")
 ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.show()
+
+print(reducedDf)
