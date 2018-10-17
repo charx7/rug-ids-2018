@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import pprint
 
 # Custom Imports
 from utils.preprocessor import preprocess
@@ -92,7 +93,57 @@ plt.show()
 # Attach labels to the scaled dataset again...
 scaledDf = preprocess(scaledDf, labels, False)
 # Call the Anova function
-print(scaledDf)
-for i in range(20):
+
+# Empty array to save our resultz
+anovaResults = []
+for i in range(columns-1):
+    # Save the column index we are working on
     currentIteration = "x" + str(i+1)
-    doANOVA(scaledDf, currentIteration)
+    # Call the custom ANOVA function
+    currentF, currentP = doANOVA(scaledDf, currentIteration)
+
+    # Save our results on a dictionary format
+    currentIndex = i
+    curentResults = {
+        "currentIndex": currentIndex,
+        "fStat": currentF,
+        "pValue": currentP
+    }
+    # Append our results
+    anovaResults.append(curentResults)
+
+# Desc Sort the listed dictionary based on the P-value
+sortedAnova = sorted(anovaResults, key=lambda k: k['pValue'])
+# Pretty print to the console our results
+pprint.pprint(sortedAnova)
+
+pValuesArray = []
+indicesArray = []
+#print((sortedAnova[0])['pValue'])
+# Turn the results into an array for a nice Viz
+for i in range(len(sortedAnova)):
+    pValuesArray.append(sortedAnova[i].get('pValue'))
+    indicesArray.append(sortedAnova[i].get('currentIndex'))
+print('The best indices according to ANOVA: ',indicesArray)
+print('Their respective p-values are: ',pValuesArray)
+
+#Plot for fun and profit
+
+# Get just the p-values which are < 0.05 our CUTPOINT
+# for statistical significance
+significantValues = list(filter(lambda x: x < 0.01, pValuesArray))
+
+print("We have: ", len(significantValues[:]),
+    ' significant dimensions using a cutpoint of p-value <0.01 according to ANOVA')
+
+x_cords = []
+for i in range(len(significantValues[:])):
+    x_cords.append(i + 1)
+
+fig, ax = plt.subplots()
+ax.plot(x_cords, significantValues, 'o-')
+plt.title('P-Values plot')
+plt.xlabel('Dimenension')
+plt.ylabel("p-value")
+ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.show()

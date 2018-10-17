@@ -54,5 +54,8 @@ def doANOVA(scaledDf, variableToTest):
 
     # Run the ANOVA method
     fCurrentVariable, pCurrentVariable = stats.f_oneway(x1Cancer, x1NotCancer)
-    print("The F stat is: ", fCurrentVariable, " the p-values is: ",
-        pCurrentVariable)
+    #print("The F stat for ", variableToTest, " is: ", fCurrentVariable,
+    #    " the p-values is: ", pCurrentVariable)
+    # Return the results
+    
+    return fCurrentVariable[0], pCurrentVariable[0]
