@@ -1,16 +1,10 @@
-import imageio as imgo
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import accuracy_score, classification_report,confusion_matrix
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from class_balancer import doUpsamling
 from utils.preprocessor import preprocess
 from utils.scaler import scale
-from matplotlib import pyplot as plt
-import graphviz
 import pandas as pd
-import numpy as np
-import io
-import pydotplus
 
 
 # Read the data
