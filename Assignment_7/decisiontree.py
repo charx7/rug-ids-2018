@@ -2,11 +2,11 @@ from sklearn import tree
 import imageio as imgo
 from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor, export_graphviz
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from class_balancer import doUpsamling
 from utils.preprocessor import preprocess
 from sklearn.decomposition import PCA
 from utils.scaler import scale
-from scipy import misc
 from matplotlib import pyplot as plt
 import graphviz
 import pandas as pd
@@ -44,17 +44,17 @@ df = doUpsamling(df)
 ###sorted_df = relFeat.sort_values(by = ['PCA 2'], axis =1)
 ####Last 20 features with highest PCA variance for PCA-2
 ###pca2 = sorted_df[sorted_df.columns[-20:]]
-
+asd = DecisionTreeRegressor(min)
 #define decision tree classifier
-classifier = DecisionTreeRegressor(min_samples_split= 100)
+classifier = DecisionTreeClassifier(min_samples_split= 100)
 #define relevant Features
 relevantFeatures = ['x39','x123','x130','x56','x157','x32']
 
 #define train and target sets
 train,test =train_test_split(df, test_size=0.15)
 x_train = train[relevantFeatures]
-x_test = test['class']
-y_train = train[relevantFeatures]
+x_test = test[relevantFeatures]
+y_train = train['class']
 y_test = test['class']
 
 #run model
@@ -70,3 +70,10 @@ def create_img(decisionTree,relevantFeatures, path):
     plt.imshow(img)
 
 create_img(dtModel,relevantFeatures,'dt_01.png')
+
+prediction = classifier.predict(x_test)
+
+accuracyScore = accuracy_score(y_test,prediction)*100
+
+print("Accuracy for current decision tree is ", round(accuracyScore,1), "%")
+
