@@ -44,6 +44,10 @@ y=df_values[:,[columns - 1]].flatten()
 X_train, X_final_test, y_train, y_final_test = train_test_split(X, y, test_size=0.30,
  	random_state=45)
 
+# Upsampling uses random stuff we plug the meaning of life into it
+np.random.seed(42)
+X_train, y_train = doUpsamling(X_train, y_train)
+
 y_train_labels = pd.DataFrame(data=y_train[:], columns=['cancer'])
 
 # Convert X_train to a df to attach the labels shape gets the num of columns
@@ -57,12 +61,14 @@ X_train_dataframe = pd.DataFrame(data=X_train[:], columns=[newNames])
 # Call the pre-processor to attach the labels of 'cancer' again
 df = preprocess(X_train_dataframe, y_train_labels, False)
 
+'''
 # Upsampling uses random stuff we plug the meaning of life into it
 np.random.seed(42)
 # Class balancing: upsampling minority class
 df_upsampled_ordered = doUpsamling(df)
 df_upsampled = df_upsampled_ordered.sample(frac=1).reset_index(drop=True)
 df_values = df_upsampled.values
+'''
 
 # scale training data using standar scaler
 #scaler = preprocessing.StandardScaler().fit(X_train)
@@ -204,6 +210,19 @@ print("========================")
 print('\n')
 
 print("========================")
+print("Start Up-Sampling")
+
+# Upsampling uses random stuff we plug the meaning of life into it
+np.random.seed(42)
+X_train_toCV, y_train_toCV = doUpsamling(X_train_toCV, y_train_toCV)
+
+y_train_labels = pd.DataFrame(data=y_train[:], columns=['cancer'])
+
+print("End Up-Sampling")
+print("========================")
+print('\n')
+
+print("========================")
 print("Start scaling")
 # Get a pandas df from the split
 y_train_toCV = pd.DataFrame(data=y_train_toCV[:], columns=['cancer'])
@@ -222,7 +241,7 @@ df = preprocess(X_train_toCV_dataframe, y_train_toCV, False)
 print("End scaling")
 print("========================")
 print('\n')
-
+'''
 print("========================")
 print("Start Up-Sampling")
 
@@ -237,10 +256,12 @@ df_values = df_upsampled.values
 print("End Up-Sampling")
 print("========================")
 print('\n')
-
+'''
 
 print("========================")
 print("Start train-test split on the up-sampled & dim reduced dataset")
+
+df_values = df.values
 
 # split to train and test data
 X=df_values[:,0:columns - 1]

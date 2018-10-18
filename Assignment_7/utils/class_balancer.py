@@ -1,21 +1,16 @@
-from sklearn.utils import resample
+from imblearn.over_sampling import SMOTE
 import pandas as pd
+import numpy as np
+from utils.preprocessor import preprocess
 
-def doUpsamling(df):
-	# Separate majority and minority classes
-	# Get a dataframe of TRUE of FALSE
-	selection = df['cancer'] == 1
-    # Select just the indices you want with the .loc function
-	df_minority = df.loc[selection.values.flatten()]
-	df_majority = df.loc[~selection.values.flatten()]
-	# Upsample minority class
-	# with replacement, to match the majority class and seed used to reproduce results
-	df_minority_upsampled = resample(df_minority, replace=True, n_samples=len(df_majority), random_state=112358)
+def doUpsamling(X,y):
+	sm = SMOTE(random_state=42)
+	X_train_res, y_train_res = sm.fit_sample(X, y)
 	
-	print("Length of upsampled minority class: ", len(df_minority_upsampled))
-	print("Length of majority class: ", len(df_majority))
+	print('After OverSampling, the shape of train_X: {}'.format(X_train_res.shape))
+	print('After OverSampling, the shape of train_y: {} \n'.format(y_train_res.shape))
+
+	print("After OverSampling, counts of label '1': {}".format(sum(y_train_res==1)))
+	print("After OverSampling, counts of label '0': {}".format(sum(y_train_res==0)))
 	
-	df_upsampled = pd.concat([df_minority_upsampled, df_majority])
-	print("Length of upsampled dataset: ", len(df_upsampled))
-	
-	return df_upsampled
+	return X_train_res, y_train_res
