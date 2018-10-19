@@ -73,7 +73,7 @@ reducedDf = reducedDf.join(combinedDf.iloc[:,-1])
 
 
 #Set parameters for hyperparameter search with RandomizedSearchCV
-#Below code blcok seperated by "#" sign doesnt need to be run if it takes too much time. The best parameters are already provided below. Check line 85 for details
+#Below code blcok seperated by "#" sign doesnt need to be run if it takes too much time. The best parameters are already provided below. Check line 96 for details
 
 
 ###########################################################################################
