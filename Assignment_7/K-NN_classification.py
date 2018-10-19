@@ -152,6 +152,7 @@ print("The optimal number of neighbors is %d" % optimal_k)
 
 # plot misclassification error vs k
 plt.plot(neighbors, MSE)
+plt.title('MSE X-validation Plot using StandardScaler')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Mean Misclassification Error on the validation sets')
 plt.show()
@@ -202,6 +203,7 @@ print("Accuracies on the test with different k's is: \n", accuracy_on_test)
 
 # plot misclassification error vs k
 plt.plot(neighbors, accuracy_on_test)
+plt.title('Accuracy on Test-set Plot using StandardScaler')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Accuracy on the test set')
 plt.show()
@@ -212,7 +214,7 @@ print('\n')
 
 print('\n')
 print("===================================================")
-print('NEXT EXPERIMENT (2) WITH ANOTHER SCAILING TECHNIQUE')
+print('SECOND EXPERIMENT (2) WITH MIN/MAX SCAILING TECHNIQUE')
 print("===================================================")
 print('\n')
 
@@ -353,6 +355,7 @@ print("The optimal number of neighbors is %d" % optimal_k)
 
 # plot misclassification error vs k
 plt.plot(neighbors, MSE)
+plt.title('MSE X-validation Plot using MinMaxScaler')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Mean Misclassification Error on the validation sets')
 plt.show()
@@ -403,6 +406,7 @@ print("Accuracies on the test with different k's is: \n", accuracy_on_test)
 
 # plot misclassification error vs k
 plt.plot(neighbors, accuracy_on_test)
+plt.title('Accuracy on Test-set Plot using MinMaxScaler')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Accuracy on the test set')
 plt.show()
@@ -412,7 +416,7 @@ print("========================")
 
 print('\n')
 print("====================================================")
-print('NEXT EXPERIMENT (3) WITH ANOVA AND StandardScaler ')
+print('THIRD EXPERIMENT (3) WITH ANOVA AND StandardScaler ')
 print("====================================================")
 print('\n')
 
@@ -554,6 +558,7 @@ print("The optimal number of neighbors is %d" % optimal_k)
 # plot misclassification error vs k
 plt.plot(neighbors, MSE)
 plt.xlabel('Number of Neighbors K')
+plt.title('MSE X-validation Plot using StandardScaler + ANOVA')
 plt.ylabel('Mean Misclassification Error on the validation sets')
 plt.show()
 
@@ -603,6 +608,7 @@ print("Accuracies on the test with different k's is: \n", accuracy_on_test)
 
 # plot misclassification error vs k
 plt.plot(neighbors, accuracy_on_test)
+plt.title('Accuracy on Test-set Plot using StandardScaler + ANOVA')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Accuracy on the test set')
 plt.show()
@@ -612,7 +618,7 @@ print("========================")
 
 print('\n')
 print("====================================================")
-print('NEXT EXPERIMENT (4) WITH ANOVA AND MinMaxScaler ')
+print('FOURTH EXPERIMENT (4) WITH ANOVA AND MinMaxScaler ')
 print("====================================================")
 print('\n')
 
@@ -754,6 +760,7 @@ print("The optimal number of neighbors is %d" % optimal_k)
 # plot misclassification error vs k
 plt.plot(neighbors, MSE)
 plt.xlabel('Number of Neighbors K')
+plt.title('MSE X-validation Plot using MinMaxScaler + ANOVA')
 plt.ylabel('Mean Misclassification Error on the validation sets')
 plt.show()
 
@@ -803,6 +810,7 @@ print("Accuracies on the test with different k's is: \n", accuracy_on_test)
 
 # plot misclassification error vs k
 plt.plot(neighbors, accuracy_on_test)
+plt.title('Accuracy on Test-set Plot using MinMaxScaler + ANOVA')
 plt.xlabel('Number of Neighbors K')
 plt.ylabel('Accuracy on the test set')
 plt.show()
