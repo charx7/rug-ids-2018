@@ -80,7 +80,7 @@ reducedDf = reducedDf.join(combinedDf.iloc[:,-1])
 #parameters = {"max_depth":randint(3,50), "min_samples_leaf": randint(1, 100),"max_leaf_nodes": randint(1,50),"min_samples_leaf": randint(2,10), "criterion":['gini'], }
 #
 #classifier = DecisionTreeClassifier()
-#classifier_cv = RandomizedSearchCV (classifier,parameters, cv = 10, n_jobs = -1, n_iter=10000)
+#classifier_cv = RandomizedSearchCV (classifier,parameters, cv = 10, n_jobs = -1, n_iter=100000)
 #
 #dtModel = classifier_cv.fit(reducedDf.iloc[:, :-1],y_train)
 #
@@ -93,7 +93,7 @@ reducedDf = reducedDf.join(combinedDf.iloc[:,-1])
 
 
 
-#max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25
+#max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2
 #The above values are obtained from iterating the RandomizedSearchCV for 100.000 times. The user is free to not use
 #provided values and do their own search. In that case code commented right above should be used and code on line 102 should be commented out.
 #classifier = DecisionTreeClassifier(max_depth=parameterValuesList[0], min_samples_split= parameterValuesList[1], max_leaf_nodes=parameterValuesList[2], min_samples_leaf=parameterValuesList[3], random_state=25)
@@ -110,7 +110,7 @@ prediction = classifier.predict(x_test[reducedDf.iloc[:, :-1].columns])
 
 #compute accuracy score
 accuracyScore = accuracy_score(y_test,prediction)*100
-print("Accuracy for current decision tree on test data is ", round(accuracyScore,1), "%")
+print("Accuracy for the current decision tree on the test data is ", round(accuracyScore,1), "%")
 
 #create confusion matrix
 cmatrix = confusion_matrix(y_test,prediction)
