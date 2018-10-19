@@ -35,7 +35,12 @@ def doTSNE(scaledDf):
     # Now we are going to do t-TSNE
     time_start = time.time()
     tsne = TSNE(n_components=2, verbose=1, perplexity=24, n_iter=1000)
-    tsne_results = tsne.fit_transform(scaledDf.values)
+    try:
+        tsne_results = tsne.fit_transform(scaledDf.values)
+    except Exception as e:
+        print('You did pass a DF, doing with a np array...')
+        tsne_results = tsne.fit_transform(scaledDf)
+
     print ('t-SNE done! Time elapsed: {} seconds'.format(time.time()-time_start))
     return tsne_results
 
