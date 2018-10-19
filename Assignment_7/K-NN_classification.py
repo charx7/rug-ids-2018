@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
 
 # Custom Imports
@@ -182,6 +183,19 @@ pred = knn.predict(X_test_scaled)
 # evaluate accuracy
 print ('The final accuracy score of our model is: ',
 	accuracy_score(y_test, pred))
+
+# Confusion matrix of the model
+print('The confusion matrix is: ')
+y_actu = pd.Series(y_test, name='Actual')
+y_pred = pd.Series(pred, name='Predicted')
+df_confusion = pd.crosstab(y_actu, y_pred)
+print(df_confusion)
+
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+print('The True Negatives are: ', tn, ' in percent: ', (tn / (tn + fn)),
+	'\n The False positives are: ', fp, ' in percent: ', (fp / (fp + tp)),
+	'\n The False Negatives are: ', fn, ' in percent: ', (fn / (fn + tn)),
+	'\n The True Positives are: ', tp, ' in percent: ', (tp / (tp + fp)))
 
 # plot accuracy on the test set vs different k's
 accuracy_on_test = []
@@ -386,6 +400,19 @@ pred = knn.predict(X_test_scaled)
 print ('The final accuracy score of our model is: ',
 	accuracy_score(y_test, pred))
 
+# Confusion matrix of the model
+print('The confusion matrix is: ')
+y_actu = pd.Series(y_test, name='Actual')
+y_pred = pd.Series(pred, name='Predicted')
+df_confusion = pd.crosstab(y_actu, y_pred)
+print(df_confusion)
+
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+print('The True Negatives are: ', tn, ' in percent: ', (tn / (tn + fn)),
+	'\n The False positives are: ', fp, ' in percent: ', (fp / (fp + tp)),
+	'\n The False Negatives are: ', fn, ' in percent: ', (fn / (fn + tn)),
+	'\n The True Positives are: ', tp, ' in percent: ', (tp / (tp + fp)))
+
 # plot accuracy on the test set vs different k's
 accuracy_on_test = []
 for k in neighbors:
@@ -588,6 +615,19 @@ pred = knn.predict(X_test_scaled)
 print ('The final accuracy score of our model is: ',
 	accuracy_score(y_test, pred))
 
+# Confusion matrix of the model
+print('The confusion matrix is: ')
+y_actu = pd.Series(y_test, name='Actual')
+y_pred = pd.Series(pred, name='Predicted')
+df_confusion = pd.crosstab(y_actu, y_pred)
+print(df_confusion)
+
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+print('The True Negatives are: ', tn, ' in percent: ', (tn / (tn + fn)),
+	'\n The False positives are: ', fp, ' in percent: ', (fp / (fp + tp)),
+	'\n The False Negatives are: ', fn, ' in percent: ', (fn / (fn + tn)),
+	'\n The True Positives are: ', tp, ' in percent: ', (tp / (tp + fp)))
+
 # plot accuracy on the test set vs different k's
 accuracy_on_test = []
 for k in neighbors:
@@ -789,6 +829,19 @@ pred = knn.predict(X_test_scaled)
 # evaluate accuracy
 print ('The final accuracy score of our model is: ',
 	accuracy_score(y_test, pred))
+
+# Confusion matrix of the model
+print('The confusion matrix is: ')
+y_actu = pd.Series(y_test, name='Actual')
+y_pred = pd.Series(pred, name='Predicted')
+df_confusion = pd.crosstab(y_actu, y_pred)
+print(df_confusion)
+
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+print('The True Negatives are: ', tn, ' in percent: ', (tn / (tn + fn)),
+	'\n The False positives are: ', fp, ' in percent: ', (fp / (fp + tp)),
+	'\n The False Negatives are: ', fn, ' in percent: ', (fn / (fn + tn)),
+	'\n The True Positives are: ', tp, ' in percent: ', (tp / (tp + fp)))
 
 # plot accuracy on the test set vs different k's
 accuracy_on_test = []
