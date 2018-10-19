@@ -34,7 +34,7 @@ def doTSNE(scaledDf):
 
     # Now we are going to do t-TSNE
     time_start = time.time()
-    tsne = TSNE(n_components=2, verbose=1, perplexity=30, n_iter=1000)
+    tsne = TSNE(n_components=2, verbose=1, perplexity=24, n_iter=1000)
     tsne_results = tsne.fit_transform(scaledDf.values)
     print ('t-SNE done! Time elapsed: {} seconds'.format(time.time()-time_start))
     return tsne_results
@@ -57,5 +57,5 @@ def doANOVA(scaledDf, variableToTest):
     #print("The F stat for ", variableToTest, " is: ", fCurrentVariable,
     #    " the p-values is: ", pCurrentVariable)
     # Return the results
-    
+
     return fCurrentVariable[0], pCurrentVariable[0]
