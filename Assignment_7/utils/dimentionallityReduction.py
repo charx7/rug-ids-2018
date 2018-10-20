@@ -28,13 +28,13 @@ def doPCA(scaledDf, dimensionsToReduce):
 
     return pca_df, explainedVariance
 
-def doTSNE(scaledDf):
+def doTSNE(scaledDf, p=30, iterations=1000):
     # Because 42 is the answer of the meaning of life
     np.random.seed(42)
 
     # Now we are going to do t-TSNE
     time_start = time.time()
-    tsne = TSNE(n_components=2, verbose=1, perplexity=30, n_iter=1000)
+    tsne = TSNE(n_components=2, verbose=1, perplexity=p, n_iter=iterations)
     tsne_results = tsne.fit_transform(scaledDf.values)
     print ('t-SNE done! Time elapsed: {} seconds'.format(time.time()-time_start))
     return tsne_results
@@ -54,5 +54,4 @@ def doANOVA(scaledDf, variableToTest):
 
     # Run the ANOVA method
     fCurrentVariable, pCurrentVariable = stats.f_oneway(x1Cancer, x1NotCancer)
-    print("The F stat is: ", fCurrentVariable, " the p-values is: ",
-        pCurrentVariable)
+    return (fCurrentVariable, pCurrentVariable)

@@ -23,6 +23,8 @@ print("The appended resulting dataframe is: \n", df)
 
 # Perform scailing on the data
 scaledDf = scale(df)
+print(scaledDf)
+
 
 # Perform PCA with 2 var on the scaledDf
 # Count the number of columns
@@ -44,10 +46,11 @@ plot = df.values
 colors =  plot[:,186]
 
 fig = plt.figure()
-plt.scatter(pca_df['PCA 1'],pca_df['PCA 2'], c=colors, marker='.')
 plt.title("2 dimensions PCA representation of the dataset", fontsize=15)
 plt.xlabel('PCA_1', fontsize=13)
 plt.ylabel('PCA_2', fontsize=13)
+plt.scatter(pca_df['PCA 1'],pca_df['PCA 2'], c=colors, marker='.')
+plt.legend()
 fig.set_size_inches(10, 10, forward=True)
 plt.show()
 
@@ -74,8 +77,8 @@ plt.ylabel("`%` of the Var explained")
 ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.show()
 
-# Do TSNE
-tsne_results = doTSNE(scaledDf)
+# Do TSNE (try p=2, 30)
+tsne_results = doTSNE(scaledDf, 30, 5000)
 # Save the resulting columns of t-SNE for a plot
 x_axis = tsne_results[:,0]
 y_axis = tsne_results[:,1]
@@ -92,7 +95,9 @@ plt.show()
 # Attach labels to the scaled dataset again...
 scaledDf = preprocess(scaledDf, labels, False)
 # Call the Anova function
-print(scaledDf)
+# print(scaledDf)
 for i in range(20):
     currentIteration = "x" + str(i+1)
-    doANOVA(scaledDf, currentIteration)
+    (f, p) = doANOVA(scaledDf, currentIteration)
+    # if p < .05:
+    print("The F stat of var", i, "is: ", f, " the p-values is: ", p)
