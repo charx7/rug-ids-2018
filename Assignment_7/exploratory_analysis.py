@@ -124,11 +124,15 @@ good_select = [scaledDf['x' + str(res['currentIndex'])] for res in sortedAnovaRe
 bad_select = [scaledDf['x' + str(res['currentIndex'])] for res in sortedAnovaResults[-3:]]
 not_selected = [scaledDf[lbl] for lbl in list(insignif_idxs)[:3] if lbl != 'cancer']
 
-# Stack selected feature values in expected format
-selection = [good_select, bad_select, not_selected]
-selection = [np.squeeze(np.array([np.array(arr) for arr in sel])) for sel in selection]
-selection = np.concatenate(selection).transpose()
+# gather data and labels for boxplot
+selection = [np.squeeze(arr) for arr in good_select + bad_select + not_selected]
+df2 = pd.DataFrame(data=np.array(selection).transpose(), columns=lbls)
+lbls = ['best1','best2','best3','signif4','signif5', 'signif6','bad7','bad8','bad9']
 
+# boxplot
+sns.set_context('talk')
 plt.figure()
-plt.boxplot(selection, labels = ['best','best','best','signif','signif', 'signif','bad','bad','bad'])
+ax = sns.boxplot(data=df2)
+ax.set(xlabel="feature", ylabel='scaled values')
 plt.title("feature value distributions")
+plt.show()
