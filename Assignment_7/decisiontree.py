@@ -11,7 +11,6 @@ from random import randint
 from sklearn.metrics import accuracy_score,confusion_matrix
 from utils.class_balancer import doUpsamling
 from utils.preprocessor import preprocess, reduceDimentions
-from utils.scaler import scale
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
@@ -33,11 +32,8 @@ df = preprocess(rawData, labels, True)
 #remove last column before scaling
 df = df.iloc[:, :-1]
 
-#scale raw data
-scaled_df = scale(df)
-
 #append class labels again
-prepDf = preprocess(scaled_df, labels, False)
+prepDf = preprocess(df, labels, False)
 
 #define relevant Features
 #relevantFeatures = ['x39','x123','x130','x56','x157','x32'] #best dimensions??
@@ -95,7 +91,7 @@ reducedDf = reducedDf.join(combinedDf.iloc[:,-1])
 
 #max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2
 #The above values are obtained from iterating the RandomizedSearchCV for 100.000 times. The user is free to not use
-#provided values and do their own search. In that case code commented right above should be used and code on line 102 should be commented out.
+#provided values and do their own search. In that case code commented right below should be used and code on line 102 should be commented out.
 #classifier = DecisionTreeClassifier(max_depth=parameterValuesList[0], min_samples_split= parameterValuesList[1], max_leaf_nodes=parameterValuesList[2], min_samples_leaf=parameterValuesList[3], random_state=25)
 
 #Build the dtModel with best parameters
