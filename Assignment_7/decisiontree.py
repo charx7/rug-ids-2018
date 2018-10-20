@@ -11,7 +11,6 @@ from random import randint
 from sklearn.metrics import accuracy_score,confusion_matrix
 from utils.class_balancer import doUpsamling
 from utils.preprocessor import preprocess, reduceDimentions
-from utils.scaler import scale
 from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
@@ -33,11 +32,8 @@ df = preprocess(rawData, labels, True)
 #remove last column before scaling
 df = df.iloc[:, :-1]
 
-#scale raw data
-scaled_df = scale(df)
-
 #append class labels again
-prepDf = preprocess(scaled_df, labels, False)
+prepDf = preprocess(df, labels, False)
 
 #define relevant Features
 #relevantFeatures = ['x39','x123','x130','x56','x157','x32'] #best dimensions??
