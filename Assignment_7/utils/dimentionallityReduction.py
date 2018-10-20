@@ -28,14 +28,18 @@ def doPCA(scaledDf, dimensionsToReduce):
 
     return pca_df, explainedVariance
 
-def doTSNE(scaledDf, p=30, iterations=1000):
+def doTSNE(scaledDf, p=24, iterations=1000):
     # Because 42 is the answer of the meaning of life
     np.random.seed(42)
 
     # Now we are going to do t-TSNE
     time_start = time.time()
     tsne = TSNE(n_components=2, verbose=1, perplexity=p, n_iter=iterations)
-    tsne_results = tsne.fit_transform(scaledDf.values)
+    try:
+        tsne_results = tsne.fit_transform(scaledDf.values)
+    except Exception as e:
+        print('You did pass a DF, doing with a np array...')
+        tsne_results = tsne.fit_transform(scaledDf)
     print ('t-SNE done! Time elapsed: {} seconds'.format(time.time()-time_start))
     return tsne_results
 

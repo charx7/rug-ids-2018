@@ -4,9 +4,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import pprint
+import seaborn as sns
+sns.set()
 
 # Custom Imports
 from utils.preprocessor import preprocess
+from utils.preprocessor import reduceDimentions
 from utils.scaler import scale
 from utils.dimentionallityReduction import doPCA
 from utils.dimentionallityReduction import doTSNE
@@ -24,7 +28,6 @@ print("The appended resulting dataframe is: \n", df)
 # Perform scailing on the data
 scaledDf = scale(df)
 print(scaledDf)
-
 
 # Perform PCA with 2 var on the scaledDf
 # Count the number of columns
@@ -94,10 +97,38 @@ plt.show()
 # Moar dimentionallity Reduction via ANOVA
 # Attach labels to the scaled dataset again...
 scaledDf = preprocess(scaledDf, labels, False)
+
 # Call the Anova function
-# print(scaledDf)
-for i in range(20):
-    currentIteration = "x" + str(i+1)
-    (f, p) = doANOVA(scaledDf, currentIteration)
-    # if p < .05:
-    print("The F stat of var", i, "is: ", f, " the p-values is: ", p)
+sortedAnovaResults, significantValues, reducedDf = reduceDimentions(scaledDf, 'ANOVA',
+    0.01, reduce= True)
+
+# Plot for fun and profit
+fig, ax = plt.subplots()
+x_cords = np.array(range(len(significantValues[:])) + 1 #1-indexed x axis
+ax.plot(x_cords, significantValues, 'o-')
+plt.title('P-Values plot')
+plt.xlabel('Dimenension')
+plt.ylabel("p-value")
+ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+plt.show()
+
+print("The reduced df according to anova p-values is: \n", reducedDf)
+
+# Boxplot overview of 3 best, 3 worst significant, and three insignificant features
+signif_idxs = set(reducedDf.keys().get_level_values(0))
+insignif_idxs = set(scaledDf.keys().get_level_values(0)).difference(signif_idxs)
+np.random.shuffle(insignif_idxs) #pick random insignificant feats
+
+# Get feature value arrays for each feature
+good_select = [scaledDf['x' + str(res['currentIndex'])] for res in sortedAnovaResults[:3]]
+bad_select = [scaledDf['x' + str(res['currentIndex'])] for res in sortedAnovaResults[-3:]]
+not_selected = [scaledDf[lbl] for lbl in list(insignif_idxs)[:3] if lbl != 'cancer']
+
+# Stack selected feature values in expected format
+selection = [good_select, bad_select, not_selected]
+selection = [np.squeeze(np.array([np.array(arr) for arr in sel])) for sel in selection]
+selection = np.concatenate(selection).transpose()
+
+plt.figure()
+plt.boxplot(selection, labels = ['best','best','best','signif','signif', 'signif','bad','bad','bad'])
+plt.title("feature value distributions")
