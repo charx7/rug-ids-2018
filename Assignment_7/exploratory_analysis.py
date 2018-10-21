@@ -107,7 +107,7 @@ fig, ax = plt.subplots()
 x_cords = np.array(range(len(significantValues[:]))) + 1
 ax.plot(x_cords, significantValues, 'o-')
 plt.title('P-Values plot')
-plt.xlabel('Dimenension')
+plt.xlabel('Dimension')
 plt.ylabel("p-value")
 ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.show()
