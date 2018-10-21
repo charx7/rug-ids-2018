@@ -65,8 +65,6 @@ knnClassifier2 = Classifier(classifier_knn2.predict)
 
 
 # Add differently initialised classifiers to the ensemble
-# Add Knn and DT classifiers to the ensemble
-# Try new initialisations for different experiments?
 # Ensemble becomes a new classifier defined by a function using the created classifiers.
 classifiers = [decisionTree, decisionTree2, randomForest, randomForest2, knnClassifier, knnClassifier2]
 ensemble = Classifier(lambda data : majorityvote(data, classifiers))
