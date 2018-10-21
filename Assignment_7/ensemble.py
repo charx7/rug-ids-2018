@@ -45,9 +45,9 @@ rfModel = classifier_rf.fit(x_train, y_train)
 randomForest = Classifier(classifier_rf.predict)
 
 # Random Forest with different parameters
-classifier_rf = RandomForestClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
-rfModel = classifier_rf.fit(x_train, y_train)
-randomForest = Classifier(classifier_rf.predict)
+classifier_rf2 = RandomForestClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
+rfModel2 = classifier_rf2.fit(x_train, y_train)
+randomForest2 = Classifier(classifier_rf2.predict)
 
 
 
@@ -68,5 +68,5 @@ knnClassifier2 = Classifier(classifier_knn2.predict)
 # Add Knn and DT classifiers to the ensemble
 # Try new initialisations for different experiments?
 # Ensemble becomes a new classifier defined by a function using the created classifiers.
-classifiers = [decisionTree, decisionTree2, knnClassifier, knnClassifier2]
+classifiers = [decisionTree, decisionTree2, randomForest, randomForest2, knnClassifier, knnClassifier2]
 ensemble = Classifier(lambda data : majorityvote(data, classifiers))
