@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import pprint
 import seaborn as sns
-sns.set()
 
 # Custom Imports
 from utils.preprocessor import preprocess
@@ -114,6 +113,8 @@ plt.show()
 
 print("The reduced df according to anova p-values is: \n", reducedDf)
 
+# Move the seaborn colors to not interfere with plotlib ones
+sns.set()
 # Boxplot overview of 3 best, 3 worst significant, and three insignificant features
 signif_idxs = set(reducedDf.keys().get_level_values(0))
 insignif_idxs = set(scaledDf.keys().get_level_values(0)).difference(signif_idxs)

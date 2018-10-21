@@ -4,13 +4,10 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - ca-certificates=2018.03.07=0
-  - certifi=2018.8.24=py37_1
   - icu=58.2=ha66f8fd_1
   - jpeg=9b=hb83a4c4_2
   - libpng=1.6.34=h79bbb47_0
   - libsodium=1.0.16=h9d3ae62_0
-  - openssl=1.0.2p=hfa6e2cd_0
   - pandas=0.23.4=py37h830ac7b_0
   - patsy=0.5.0=py37_0
   - pytz=2018.5=py37_0
@@ -24,17 +21,23 @@ dependencies:
   - zlib=1.2.11=h8395fce_2
   - cycler=0.10.0=py_1
   - freetype=2.9.1=he8b6a0d_1004
+  - graphviz=2.38.0=h6538335_1009
+  - imbalanced-learn=0.4.1=py_0
   - kiwisolver=1.0.1=py37he980bc4_1002
   - matplotlib=3.0.0=py37h7b168c4_1
+  - pydotplus=2.0.2=py_1
   - pyparsing=2.2.2=py_0
   - tqdm=4.26.0=py_0
   - backcall=0.1.0=py37_0
   - blas=1.0=mkl
   - bleach=3.0.2=py37_0
+  - ca-certificates=2018.03.07=0
+  - certifi=2018.10.15=py37_0
   - colorama=0.3.9=py37_0
   - decorator=4.3.0=py37_0
   - entrypoints=0.2.3=py37_2
   - icc_rt=2017.0.4=h97af966_0
+  - imageio=2.4.1=py37_0
   - intel-openmp=2019.0=118
   - ipykernel=5.0.0=py37h39e3cac_0
   - ipython=7.0.1=py37h39e3cac_0
@@ -47,6 +50,7 @@ dependencies:
   - jupyter_client=5.2.3=py37_0
   - jupyter_console=6.0.0=py37_0
   - jupyter_core=4.4.0=py37_0
+  - libtiff=4.0.9=h36446d0_2
   - m2w64-gcc-libgfortran=5.3.0=6
   - m2w64-gcc-libs=5.3.0=7
   - m2w64-gcc-libs-core=5.3.0=7
@@ -63,10 +67,13 @@ dependencies:
   - notebook=5.7.0=py37_0
   - numpy=1.15.2=py37ha559c80_0
   - numpy-base=1.15.2=py37h8128ebf_0
+  - olefile=0.46=py37_0
+  - openssl=1.0.2p=hfa6e2cd_0
   - pandoc=2.2.3.2=0
   - pandocfilters=1.4.2=py37_1
   - parso=0.3.1=py37_0
   - pickleshare=0.7.5=py37_0
+  - pillow=5.3.0=py37hdc69c19_0
   - pip=10.0.1=py37_0
   - prometheus_client=0.4.0=py37_0
   - prompt_toolkit=2.0.5=py37_0
@@ -74,6 +81,7 @@ dependencies:
   - pyqt=5.6.0=py37ha878b3d_6
   - python=3.7.0=hea74fb7_0
   - python-dateutil=2.7.3=py37_0
+  - python-graphviz=0.8.4=py37_1
   - pywinpty=0.5.4=py37_0
   - pyzmq=17.1.2=py37hfa6e2cd_0
   - qt=5.6.2=vc14h6f8c307_12
@@ -86,6 +94,7 @@ dependencies:
   - six=1.11.0=py37_1
   - terminado=0.8.1=py37_1
   - testpath=0.4.2=py37_0
+  - tk=8.6.8=hfa6e2cd_0
   - tornado=5.1.1=py37hfa6e2cd_0
   - traitlets=4.3.2=py37_0
   - wcwidth=0.1.7=py37_0
