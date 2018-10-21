@@ -22,30 +22,37 @@ def majorityvote(data, classifiers):
     # Assuming the values are in columns
     return mode(predictions.transpose())[0]
 
+	
+	
 ## Decision Tree
-##   Define and train decision tree
 from decisiontree import y_train
 classifier_dt = sk.DecisionTreeClassifier(max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25)
 dtModel = classifier_dt.fit(reducedDf.iloc[:, :-1], y_train)
-##   Pass the classification function to the class
 decisionTree = Classifier(classifier_dt.predict)
 
+## Decision Tree with different parameters
+classifier_dt2 = sk.DecisionTreeClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
+dtModel2 = classifier_dt2.fit(reducedDf.iloc[:, :-1], y_train)
+decisionTree2 = Classifier(classifier_dt2.predict)
+
+
+
 ## KNN
-##   Define and train KNN
 from KNN_classification import optimal_k, X_train_scaled, y_train
 classifier_knn = KNeighborsClassifier(n_neighbors=optimal_k)
 knnModel = classifier_knn.fit(X_train_scaled, y_train)
-##   Pass the classification function to the class
 knnClassifier = Classifier(classifier_knn.predict)
 
-# TODO:
-#	Use different parameters for Decision Tree
-#	Use different number of neighbours for KNN
-#	Use another classifier?
+## KNN with different parameters
+classifier_knn2 = KNeighborsClassifier(n_neighbors=(optimal_k/2))
+knnModel2 = classifier_knn2.fit(X_train_scaled, y_train)
+knnClassifier2 = Classifier(classifier_knn2.predict)
+
+
 
 # Add differently initialised classifiers to the ensemble
 # Add Knn and DT classifiers to the ensemble
 # Try new initialisations for different experiments?
 # Ensemble becomes a new classifier defined by a function using the created classifiers.
-classifiers = [decisionTree, knnClassifier]
+classifiers = [decisionTree, decisionTree2, knnClassifier, knnClassifier2]
 ensemble = Classifier(lambda data : majorityvote(data, classifiers))
