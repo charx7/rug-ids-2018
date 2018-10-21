@@ -117,7 +117,7 @@ print("The reduced df according to anova p-values is: \n", reducedDf)
 # Boxplot overview of 3 best, 3 worst significant, and three insignificant features
 signif_idxs = set(reducedDf.keys().get_level_values(0))
 insignif_idxs = set(scaledDf.keys().get_level_values(0)).difference(signif_idxs)
-np.random.shuffle(insignif_idxs) #pick random insignificant feats
+np.random.shuffle(list(insignif_idxs)) #pick random insignificant feats
 
 # Get feature value arrays for each feature
 good_select = [scaledDf['x' + str(res['currentIndex'])] for res in sortedAnovaResults[:3]]
@@ -126,8 +126,8 @@ not_selected = [scaledDf[lbl] for lbl in list(insignif_idxs)[:3] if lbl != 'canc
 
 # gather data and labels for boxplot
 selection = [np.squeeze(arr) for arr in good_select + bad_select + not_selected]
-df2 = pd.DataFrame(data=np.array(selection).transpose(), columns=lbls)
 lbls = ['best1','best2','best3','signif4','signif5', 'signif6','bad7','bad8','bad9']
+df2 = pd.DataFrame(data=np.array(selection).transpose(), columns=lbls)
 
 # boxplot
 sns.set_context('talk')
