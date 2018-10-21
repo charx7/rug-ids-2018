@@ -36,21 +36,6 @@ classifier_dt2 = sk.DecisionTreeClassifier(max_depth=10, min_samples_split= 50, 
 dtModel2 = classifier_dt2.fit(reducedDf.iloc[:, :-1], y_train)
 decisionTree2 = Classifier(classifier_dt2.predict)
 
-
-
-# Random Forest
-from decisiontree import x_train
-classifier_rf = RandomForestClassifier(max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25)
-rfModel = classifier_rf.fit(x_train, y_train)
-randomForest = Classifier(classifier_rf.predict)
-
-# Random Forest with different parameters
-classifier_rf2 = RandomForestClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
-rfModel2 = classifier_rf2.fit(x_train, y_train)
-randomForest2 = Classifier(classifier_rf2.predict)
-
-
-
 ## KNN
 from KNN_classification import optimal_k, X_train_scaled, y_train
 classifier_knn = KNeighborsClassifier(n_neighbors=optimal_k)
@@ -62,9 +47,35 @@ classifier_knn2 = KNeighborsClassifier(n_neighbors=(optimal_k/2))
 knnModel2 = classifier_knn2.fit(X_train_scaled, y_train)
 knnClassifier2 = Classifier(classifier_knn2.predict)
 
-
-
 # Add differently initialised classifiers to the ensemble
 # Ensemble becomes a new classifier defined by a function using the created classifiers.
-classifiers = [decisionTree, decisionTree2, randomForest, randomForest2, knnClassifier, knnClassifier2]
+classifiers = [decisionTree, decisionTree2, knnClassifier, knnClassifier2]
 ensemble = Classifier(lambda data : majorityvote(data, classifiers))
+
+
+
+# Random Forest
+from decisiontree import x_train, y_train
+classifier_rf = RandomForestClassifier(max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25)
+rfModel = classifier_rf.fit(x_train, y_train)
+randomForest = Classifier(classifier_rf.predict)
+
+# Random Forest with different parameters
+classifier_rf2 = RandomForestClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
+rfModel2 = classifier_rf2.fit(x_train, y_train)
+randomForest2 = Classifier(classifier_rf2.predict)
+
+
+
+# Test the accuracy
+prediction = ensemble.predict(x_test[reducedDf.iloc[:, :-1].columns])
+accuracyScore = accuracy_score(y_test,prediction)*100
+print("Accuracy for the ensemble classifier on the test data is ", round(accuracyScore,1), "%")
+
+prediction = randomForest.predict(x_test[reducedDf.iloc[:, :-1].columns])
+accuracyScore = accuracy_score(y_test,prediction)*100
+print("Accuracy for the Random Forest (optimal) classifier on the test data is ", round(accuracyScore,1), "%")
+
+prediction = randomForest2.predict(x_test[reducedDf.iloc[:, :-1].columns])
+accuracyScore = accuracy_score(y_test,prediction)*100
+print("Accuracy for the Random Forest (semi-random) classifier on the test data is ", round(accuracyScore,1), "%")
