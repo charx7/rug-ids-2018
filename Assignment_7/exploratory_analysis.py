@@ -104,7 +104,7 @@ sortedAnovaResults, significantValues, reducedDf = reduceDimentions(scaledDf, 'A
 
 # Plot for fun and profit
 fig, ax = plt.subplots()
-x_cords = np.array(range(len(significantValues[:])) + 1 #1-indexed x axis
+x_cords = np.array(range(len(significantValues[:]))) + 1
 ax.plot(x_cords, significantValues, 'o-')
 plt.title('P-Values plot')
 plt.xlabel('Dimenension')
