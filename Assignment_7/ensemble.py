@@ -2,6 +2,7 @@ import numpy as np
 import sklearn.tree as sk
 from scipy.stats import mode
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 from exploratory_analysis import reducedDf
 
 class Classifier:
@@ -34,6 +35,19 @@ decisionTree = Classifier(classifier_dt.predict)
 classifier_dt2 = sk.DecisionTreeClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
 dtModel2 = classifier_dt2.fit(reducedDf.iloc[:, :-1], y_train)
 decisionTree2 = Classifier(classifier_dt2.predict)
+
+
+
+# Random Forest
+from decisiontree import x_train
+classifier_rf = RandomForestClassifier(max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25)
+rfModel = classifier_rf.fit(x_train, y_train)
+randomForest = Classifier(classifier_rf.predict)
+
+# Random Forest with different parameters
+classifier_rf = RandomForestClassifier(max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
+rfModel = classifier_rf.fit(x_train, y_train)
+randomForest = Classifier(classifier_rf.predict)
 
 
 
