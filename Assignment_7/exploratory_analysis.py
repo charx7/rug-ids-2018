@@ -127,13 +127,18 @@ not_selected = [scaledDf[lbl] for lbl in list(insignif_idxs)[:3] if lbl != 'canc
 
 # gather data and labels for boxplot
 selection = [np.squeeze(arr) for arr in good_select + bad_select + not_selected]
-lbls = ['best1','best2','best3','signif4','signif5', 'signif6','bad7','bad8','bad9']
+lbls = ['best\n1','best\n2','best\n3','signif\n4','signif\n5', 'signif\n6','bad\n7','bad\n8','bad\n9']
 df2 = pd.DataFrame(data=np.array(selection).transpose(), columns=lbls)
+plot_lbls = [lbls[i][:-1] + str(res['currentIndex']) for i, res in enumerate(sortedAnovaResults[:3])]
+plot_lbls += [lbls[i+3][:-1] + str(res['currentIndex']) for i, res in enumerate(sortedAnovaResults[-3:])]
+plot_lbls += [lbls[i+6][:-1] + lbl[1:] for i,lbl in enumerate(list(insignif_idxs)[:3]) if lbl != 'cancer']
 
 # boxplot
-sns.set_context('talk')
+sns.set_context('poster')
 plt.figure()
-ax = sns.boxplot(data=df2)
-ax.set(xlabel="feature", ylabel='scaled values')
+hues = [color for color in sns.color_palette("colorblind", 3) for _ in range(3)]
+ax = sns.boxplot(data=df2, palette=hues)
+plt.xticks(range(9), plot_lbls)
+ax.set(ylabel='scaled values')
 plt.title("feature value distributions")
 plt.show()
