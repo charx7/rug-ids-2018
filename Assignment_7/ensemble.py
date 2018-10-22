@@ -37,7 +37,7 @@ class KNN(Classifier):
         rawData = pd.DataFrame(data=np.concatenate([trainX, testX]))
         labels = pd.DataFrame(np.concatenate([trainY, testY]))
 
-        df = preprocess(rawData, labels, True)
+        df = preprocess(rawData, labels, False)
         # Reduce dimensions on the dataset using ANOVA
         sortedAnovaResults, significantValues, reducedDf = reduceDimentions(df,
             'ANOVA', 0.01, reduce = True)
@@ -81,7 +81,7 @@ class DecisionTree(Classifier):
         labels = pd.DataFrame(np.concatenate([trainY, testY]))
 
         #get first 179 records and label column
-        df = preprocess(rawData, labels, True)
+        df = preprocess(rawData, labels, False)
         #remove last column before scaling
         df = df.iloc[:, :-1]
         #append class labels again
@@ -162,8 +162,7 @@ def accuracy_score(predictedY, trueY):
     predicted_count = len(trueY) - err_count
     return predicted_count / len(trueY) * 100
 
-# Normalise test data to 0/1's
-valY = np.squeeze(valY) - 1
+valY = np.squeeze(valY)
 
 # Test the accuracy
 ensemble_score = accuracy_score(ensemble_knns_trees_pred, valY)
@@ -176,3 +175,24 @@ print("Accuracy for the Random Forest (optimal) classifier on the test data is "
 prediction = randomForest2.classify()
 accuracyScore = accuracy_score(prediction,valY)
 print("Accuracy for the Random Forest (semi-random) classifier on the test data is ", round(accuracyScore,1), "%")
+
+# Predict unlabeled data amd save
+# Now use all data
+nLabeledSamples = 179
+trainX = rawData[:nLabeledSamples]
+trainY = labels[:nLabeledSamples]
+testX = rawData[nLabeledSamples:]
+testY = np.ones((len(testX),1), dtype=np.int8) #fake labels
+
+# Build decisiontree and knn ensemble
+decisionTree1 = DecisionTree(trainX, trainY, testX, testY, max_depth=20, min_samples_split= 93, max_leaf_nodes=43, min_samples_leaf=2, random_state=25)
+decisionTree2 = DecisionTree(trainX, trainY, testX, testY, max_depth=10, min_samples_split= 50, max_leaf_nodes=30, min_samples_leaf=2, random_state=40)
+optim_k = 1 # as determined in KNN_classification
+knnClassifier1 = KNN(trainX, trainY, testX, testY, k=optim_k)
+knnClassifier2 = KNN(trainX, trainY, testX, testY, k=2)
+
+# Add differently initialised classifiers to the ensemble
+classifiers = [decisionTree1, decisionTree2, knnClassifier1, knnClassifier2]
+ensemble_knns_trees_pred = majorityvote(testX, classifiers)[0]
+print("Saving KNN/DT ensemble prediction as submission")
+np.savetxt("Team_14_clustering.csv", ensemble_knns_trees_pred.astype(int), fmt='%i', delimiter=',')
