@@ -1,4 +1,4 @@
-72/100
+92/100
 
 Feedback:
 
@@ -6,4 +6,4 @@ In describing Curse of Dimensionality, you havent talked about combinatorial exp
 
 Good Job on Explanation of three standard approaches . (16/16)
 
-Not answered trivial questions (0/20)
+Good trivial questions and answers(20/20)
